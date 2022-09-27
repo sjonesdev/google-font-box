@@ -3,6 +3,8 @@
 	import TextSearchInput from './TextSearchInput.svelte';
   import Loader from '$lib/components/Loader.svelte'
   import initGoogleFontsHelper from '$lib/scripts/googleFontsHelpers';
+	import HorizFieldset from '$lib/components/HorizFieldset.svelte';
+	import Label from '$lib/components/Label.svelte';
   let initDone = false;
   let initError = false;
   initGoogleFontsHelper().then((gotFonts) => {
@@ -32,41 +34,56 @@
 </header>
 
 <main style="background-color: {backgroundColor}">
-  <section class="section tint-background" aria-label="App controls">
+  <section class="section is-small tint-background has-text-light" aria-label="App controls">
     <form action="" aria-label="Font and color pickers">
       <Loader loaded={initDone}>
         <div class="is-flex is-align-items-flex-end">
-          <TextSearchInput 
-            name="primary-font" 
-            label="Primary Font" 
-            setFont={(fontName, fontUrl) => setPrimaryFontInfo(fontName, fontUrl)} 
-          />
-          <TextSearchInput 
-            name="secondary-font" 
-            label="Secondary Font" 
-            setFont={(fontName, fontUrl) => setSecondaryFontInfo(fontName, fontUrl)} 
-          />
-          <input 
-            class="input color-input margin-1" 
-            type="color" 
-            name="primary-color" 
-            id="primary-color"
-            bind:value={primaryFontColor}
-          >
-          <input 
-            class="input color-input margin-1" 
-            type="color" 
-            name="secondary-color" 
-            id="secondary-color"
-            bind:value={secondaryFontColor}
-          >
-          <input 
-            class="input color-input margin-1" 
-            type="color" 
-            name="bg-color" 
-            id="bg-color"
-            bind:value={backgroundColor}
-          >
+          <HorizFieldset ariaLabel="Primary font controls">
+            <legend>Primary</legend>
+            <TextSearchInput
+              name="primary-font"
+              label="Font"
+              setFont={(fontName, fontUrl) => setPrimaryFontInfo(fontName, fontUrl)}
+            />
+            <div>
+              <Label forName="primary-color" innerText="Color" />
+              <input
+                class="input color-input"
+                type="color"
+                name="primary-color"
+                id="primary-color"
+                bind:value={primaryFontColor}
+              >
+            </div>
+          </HorizFieldset>
+          <HorizFieldset ariaLabel="Secondary font controls">
+            <legend>Secondary</legend>
+            <TextSearchInput 
+              name="secondary-font" 
+              label="Font" 
+              setFont={(fontName, fontUrl) => setSecondaryFontInfo(fontName, fontUrl)} 
+            />
+            <div>
+              <Label forName="secondary-color" innerText="Color" />
+              <input
+                class="input color-input"
+                type="color"
+                name="secondary-color"
+                id="secondary-color"
+                bind:value={secondaryFontColor}
+              >
+            </div>
+          </HorizFieldset>
+          <div>
+            <Label forName="bg-color" innerText="Background" />
+            <input
+              class="input color-input"
+              type="color"
+              name="bg-color"
+              id="bg-color"
+              bind:value={backgroundColor}
+            >
+          </div>
         </div>
       </Loader>
     </form>

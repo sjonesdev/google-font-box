@@ -8,6 +8,14 @@
 @import 'bulma/sass/helpers/_all';
 @import 'bulma/sass/layout/_all';
 
+section.is-small {
+  padding: 1.5rem;
+}
+
+.horiz-fieldset > :not(:first-child) {
+  margin: 0 0.5rem 0.5rem 0.5rem;
+}
+
 .tint-background {
   background-color: $tint;
   background-blend-mode: multiply;
@@ -16,6 +24,7 @@
 .title-header {
   @extend .tint-background;
   background-image: url("$lib/assets/google-font-box-title-bg.png");
+  background-size: cover;
   padding: 6rem;
 }
 
@@ -38,6 +47,11 @@
   font-size: $size-large;
 }
 
+.fieldset {
+  border: 2px solid $white-ter;
+  border-radius: 0.5rem;
+}
+
 .text-search-input {
   max-width: 10rem;
 }
@@ -51,6 +65,10 @@
   margin: 1rem;
 }
 
+.margin-1-h {
+  margin: 0 1rem;
+}
+
 .color-input {
   max-width: 6rem;
 }
@@ -61,6 +79,7 @@
 
 .font-display-container {
   max-width: 80%;
+  margin: 2rem auto;
 }
 
 .primary-font-display {

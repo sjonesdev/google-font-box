@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { searchFonts, getFontLink } from "$lib/scripts/googleFontsHelpers";
+  import Label from "$lib/components/Label.svelte"
 
 
   export let name: string;
@@ -50,9 +51,9 @@
 </script>
 
 <link rel="stylesheet" href={results.url} type="text/css">
-<div class={'text-search-input margin-1 dropdown' + (inputFocused || dropdownHover ? ' is-active' : '')}>
+<div class={'text-search-input dropdown' + (inputFocused || dropdownHover ? ' is-active' : '')}>
   <div>
-    <label class="label has-text-light" for={name}>{label}</label>
+    <Label forName={name} innerText={label} />
     <input 
       class="input dropdown-trigger"
       aria-haspopup="true"
