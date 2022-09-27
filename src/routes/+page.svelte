@@ -32,7 +32,7 @@
 </header>
 
 <main style="background-color: {backgroundColor}">
-  <section class="" aria-label="App controls">
+  <section class="section tint-background" aria-label="App controls">
     <form action="" aria-label="Font and color pickers">
       <Loader loaded={initDone}>
         <div class="is-flex is-align-items-flex-end">
@@ -47,21 +47,21 @@
             setFont={(fontName, fontUrl) => setSecondaryFontInfo(fontName, fontUrl)} 
           />
           <input 
-            class="input color-input" 
+            class="input color-input margin-1" 
             type="color" 
             name="primary-color" 
             id="primary-color"
             bind:value={primaryFontColor}
           >
           <input 
-            class="input color-input" 
+            class="input color-input margin-1" 
             type="color" 
             name="secondary-color" 
             id="secondary-color"
             bind:value={secondaryFontColor}
           >
           <input 
-            class="input color-input" 
+            class="input color-input margin-1" 
             type="color" 
             name="bg-color" 
             id="bg-color"
@@ -71,10 +71,10 @@
       </Loader>
     </form>
   </section>
-  <section aria-label="Font and color display">
-    <div class="font-display-container">
+  <section class="section" aria-label="Font and color display">
+    <div class="is-flex is-flex-direction-column is-align-items-center font-display-container">
       <span 
-        class="primary-font-display" 
+        class="primary-font-display center-text" 
         aria-label="Primary font display"
         style="
           font-family: {primaryFontName};
@@ -84,7 +84,7 @@
         The Quick Brown Fox Jumps Over the Lazy Dog
       </span>
       <span 
-        class="secondary-font-display" 
+        class="secondary-font-display center-text" 
         aria-label="Secondary font display"
         style="
           font-family: {secondaryFontName};

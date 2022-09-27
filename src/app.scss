@@ -8,10 +8,14 @@
 @import 'bulma/sass/helpers/_all';
 @import 'bulma/sass/layout/_all';
 
-.title-header {
-  background-image: url("$lib/assets/google-font-box-title-bg.png");
+.tint-background {
   background-color: $tint;
   background-blend-mode: multiply;
+}
+
+.title-header {
+  @extend .tint-background;
+  background-image: url("$lib/assets/google-font-box-title-bg.png");
   padding: 6rem;
 }
 
@@ -35,7 +39,7 @@
 }
 
 .text-search-input {
-  $results-display: none;
+  max-width: 10rem;
 }
 
 .dropdown-content {
@@ -43,8 +47,32 @@
   overflow: auto;
 }
 
+.margin-1 {
+  margin: 1rem;
+}
+
 .color-input {
-  max-width: 10rem;
+  max-width: 6rem;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.font-display-container {
+  max-width: 80%;
+}
+
+.primary-font-display {
+  font-size: 4rem;
+  width: max-content;
+  max-width: 100%;
+}
+
+.secondary-font-display {
+  font-size: 2rem;
+  width: max-content;
+  max-width: 80%;
 }
 
 .loader {

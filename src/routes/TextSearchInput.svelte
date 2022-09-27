@@ -12,7 +12,7 @@
 
   function updateResults(str: string) {
     console.log("updating results")
-    const newResults = searchFonts(str)
+    const newResults = searchFonts(str, 10000)
     console.log('new results:', newResults)
     // if(url == null) { // haven't fetched fonts yet, wait a little and try again
     //   console.log("haven't gotten fonts yet, will try again soon")
@@ -50,11 +50,11 @@
 </script>
 
 <link rel="stylesheet" href={results.url} type="text/css">
-<div class={'dropdown' + (inputFocused || dropdownHover ? ' is-active' : '')}>
+<div class={'text-search-input margin-1 dropdown' + (inputFocused || dropdownHover ? ' is-active' : '')}>
   <div>
-    <label class="" for={name}>{label}</label>
+    <label class="label has-text-light" for={name}>{label}</label>
     <input 
-      class="text-search-input input dropdown-trigger"
+      class="input dropdown-trigger"
       aria-haspopup="true"
       aria-controls="dropdown search"
       type="text" 
@@ -76,7 +76,7 @@
     <div class="dropdown-content">
       {#each results.fontNames as fontName}
         <button 
-          class={'dropdown-item button ' + (selected === fontName ? "is-active" : "is-ghost")}
+          class={'dropdown-item button ' + (selected === fontName ? "is-active" : "is-white")}
           type='button'
           data-font-url={getFontLink(fontName)}
           on:click={selectFont}
