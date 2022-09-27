@@ -70,6 +70,11 @@
       url: displayFontLink ?? ""
     });
   }
+
+  function onInputFocus(this: HTMLInputElement) {
+    inputFocused = true;
+    this.select();
+  }
 </script>
 
 <link rel="stylesheet" href={results.url} type="text/css">
@@ -83,7 +88,7 @@
       type="text" 
       name={name}
       id={name}
-      on:focus={() => {inputFocused = true;}}
+      on:focus={onInputFocus}
       on:blur={() => {inputFocused = false}}
       bind:value={searchStr}
     >
