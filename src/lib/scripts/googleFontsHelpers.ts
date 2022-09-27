@@ -7,6 +7,11 @@ const API_KEY = '?key=AIzaSyAhVzIbyS8zG1Su0xTTZ1jbCqLkAO_HMm0'
 
 type FontKind = 'webfonts#webfont' | 'websafe';
 type FontCategory = 'serif' | 'sans-serif' | 'monospace' | 'cursive' | 'fantasy'
+export interface FontDisplaySpec {
+  name: string
+  variant: string
+  url: string
+}
 
 interface Font {
   family: string
@@ -39,7 +44,7 @@ const FontVariants = {
   BoldItalic: "700italic",
   ExtraBoldItalic: "800italic",
   BlackItalic: "900italic"
-}
+} as const
 const FontVariantNames: {[index: string]: string} = {};
 let name: keyof typeof FontVariants
 for(name in FontVariants) {
@@ -75,12 +80,12 @@ const webSafeFonts: Array<[string, FontCategory]> = [
 for(const font of webSafeFonts) {
   fonts[font[0]] = {
     family: font[0],
-    variants: ['latin'],
-    subsets: [
+    subsets: ['latin'],
+    variants: [
       '100', '100italic',
       '200', '200italic',
       '300', '300italic',
-      'regaular', 'italic',
+      'regular', 'italic',
       '500', '500italic',
       '600', '600italic',
       '700', '700italic',
@@ -163,12 +168,36 @@ function searchFonts(nameIncludes: string, limit=10): FontSearchResults {
   return { fontNames, url }
 }
 
-function getFontLink(fontName: string): string | null {
+function getFontWeightFromVariant(variant: string): string {
+  return (variant.match(/\d{3}/g) ?? ['400'])[0];
+}
+
+function getFontLink(fontName: string, variant = ""): string | null{
   if(fonts[fontName]) {
     if(fonts[fontName].kind === 'websafe') return "";
-    return FETCH_FONT_CSS_URL + `?family=${fontName.replaceAll(' ', '+')}` + '&display=swap';
+    return FETCH_FONT_CSS_URL 
+      + `?family=${fontName.replaceAll(' ', '+')}` 
+      + (variant 
+          ?  ":" 
+            + (variant.includes('italic')
+              ? "italic"
+              : ""
+            ) 
+            + "wght@"
+            + getFontWeightFromVariant(variant)
+          : ""
+        ) 
+      + '&display=swap';
   }
   return null;
 }
 
-export { initGoogleFontsHelper, getInitDone, searchFonts, getFontLink, FontVariants }
+function getFontVariants(fontName: string): Array<keyof typeof FontVariantNames> {
+  return fonts[fontName]?.variants ?? [];
+}
+
+function hasFont(fontName: string): boolean {
+  return fonts[fontName] ? true : false;
+}
+
+export { initGoogleFontsHelper, getInitDone, searchFonts, getFontLink, getFontVariants, getFontWeightFromVariant, hasFont, FontVariants, FontVariantNames }

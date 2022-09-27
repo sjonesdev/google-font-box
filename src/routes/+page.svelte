@@ -1,10 +1,13 @@
 <script lang="ts">
   import titleBg from '$lib/assets/google-font-box-title-bg.png';
-	import TextSearchInput from './TextSearchInput.svelte';
+	import FontTextSearchInput from './FontTextSearchInput.svelte';
   import Loader from '$lib/components/Loader.svelte'
-  import initGoogleFontsHelper from '$lib/scripts/googleFontsHelpers';
+  import initGoogleFontsHelper, { getFontWeightFromVariant } from '$lib/scripts/googleFontsHelpers';
 	import HorizFieldset from '$lib/components/HorizFieldset.svelte';
 	import Label from '$lib/components/Label.svelte';
+
+  import type {FontDisplaySpec} from '$lib/scripts/googleFontsHelpers';
+
   let initDone = false;
   let initError = false;
   initGoogleFontsHelper().then((gotFonts) => {
@@ -12,21 +15,35 @@
     initError = !gotFonts;
   });
 
-  let primaryFontName = "Helvetica", primaryFontUrl = "", primaryFontColor = "#000000",
-    secondaryFontName = "Helvetica", secondaryFontUrl = "", secondaryFontColor = "#000000",
+  const DEFAULT_FONT_DISPLAY_SPEC: FontDisplaySpec = {
+    name: "Helvetica",
+    variant: "regular",
+    url: ""
+  }
+
+  let primaryFont = DEFAULT_FONT_DISPLAY_SPEC, primaryFontColor = "#000000",
+    secondaryFont = DEFAULT_FONT_DISPLAY_SPEC, secondaryFontColor = "#000000",
     backgroundColor = "#FFFFFF"
-  const setPrimaryFontInfo = (fontName: string, fontUrl: string) => {
-    primaryFontName = fontName
-    primaryFontUrl = fontUrl
+  const setPrimaryFontInfo = (fontInfo: FontDisplaySpec) => {
+    primaryFont = fontInfo
   }
-  const setSecondaryFontInfo = (fontName: string, fontUrl: string) => {
-    secondaryFontName = fontName
-    secondaryFontUrl = fontUrl
+  const setSecondaryFontInfo = (fontInfo: FontDisplaySpec) => {
+    secondaryFont = fontInfo
   }
+
+  function getStyle(fontInfo: FontDisplaySpec, color: string) {
+    return `
+      font-family: ${fontInfo.name};
+      font-weight: ${getFontWeightFromVariant(fontInfo.variant)};
+      font-style: ${fontInfo.variant.includes('italic') ? 'italic' : 'normal'};
+      color: ${color};
+    `;
+  }
+
 </script>
 
-<link rel="stylesheet" href={primaryFontUrl} type="text/css">
-<link rel="stylesheet" href={secondaryFontUrl} type="text/css">
+<link rel="stylesheet" href={primaryFont.url} type="text/css">
+<link rel="stylesheet" href={secondaryFont.url} type="text/css">
 
 <header class="title-header">
   <h1 class="title">Google Font Box</h1>
@@ -40,10 +57,11 @@
         <div class="is-flex is-align-items-flex-end">
           <HorizFieldset ariaLabel="Primary font controls">
             <legend>Primary</legend>
-            <TextSearchInput
+            <FontTextSearchInput
               name="primary-font"
               label="Font"
-              setFont={(fontName, fontUrl) => setPrimaryFontInfo(fontName, fontUrl)}
+              initialSelected={primaryFont.name}
+              setFont={(fontInfo) => setPrimaryFontInfo(fontInfo)}
             />
             <div>
               <Label forName="primary-color" innerText="Color" />
@@ -58,10 +76,11 @@
           </HorizFieldset>
           <HorizFieldset ariaLabel="Secondary font controls">
             <legend>Secondary</legend>
-            <TextSearchInput 
+            <FontTextSearchInput 
               name="secondary-font" 
               label="Font" 
-              setFont={(fontName, fontUrl) => setSecondaryFontInfo(fontName, fontUrl)} 
+              initialSelected={secondaryFont.name}
+              setFont={(fontInfo) => setSecondaryFontInfo(fontInfo)} 
             />
             <div>
               <Label forName="secondary-color" innerText="Color" />
@@ -74,7 +93,7 @@
               >
             </div>
           </HorizFieldset>
-          <div>
+          <div style="margin-bottom: calc(0.5rem + 2px);"> <!-- Margin-bottom for element inside horizfielset + fieldset border width -->
             <Label forName="bg-color" innerText="Background" />
             <input
               class="input color-input"
@@ -93,20 +112,14 @@
       <span 
         class="primary-font-display center-text" 
         aria-label="Primary font display"
-        style="
-          font-family: {primaryFontName};
-          color: {primaryFontColor};  
-        "
+        style={getStyle(primaryFont, primaryFontColor)}
       >
         The Quick Brown Fox Jumps Over the Lazy Dog
       </span>
       <span 
         class="secondary-font-display center-text" 
         aria-label="Secondary font display"
-        style="
-          font-family: {secondaryFontName};
-          color: {secondaryFontColor};
-        "
+        style={getStyle(secondaryFont, secondaryFontColor)}
       >
         The quick brown fox jumps over the lazy dog
       </span>
