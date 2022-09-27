@@ -17,23 +17,27 @@ import preprocess from 'svelte-preprocess';
 // SvelteKit Static Adapter Config
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  kit: {
-    adapter: adapter({
-      // default options are shown
-      pages: 'build',
-      assets: 'build',
-      fallback: null
-    }),
+	kit: {
+		adapter: adapter({
+			// default options are shown
+			pages: 'build',
+			assets: 'build',
+			fallback: null
+		}),
 		paths: {
 			base: '/google-font-box'
 		}
-  },
+	},
 
-  preprocess: [
-    preprocess({
-      postcss: true,
-    }),
-  ],
+	preprocess: [
+		preprocess({
+			postcss: true,
+
+			scss: {
+				prependData: '@use "src/variables.scss" as *;'
+			}
+		})
+	]
 };
 
 export default config;

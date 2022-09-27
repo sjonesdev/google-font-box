@@ -1,0 +1,73 @@
+/* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */ /* Import only what you need from Bulma */
+@import 'bulma/sass/utilities/_all';
+@import 'bulma/sass/base/_all';
+@import 'bulma/sass/elements/_all';
+@import 'bulma/sass/form/_all';
+@import 'bulma/sass/components/_all';
+@import 'bulma/sass/grid/_all';
+@import 'bulma/sass/helpers/_all';
+@import 'bulma/sass/layout/_all';
+
+.title-header {
+  background-image: url("$lib/assets/google-font-box-title-bg.png");
+  background-color: $tint;
+  background-blend-mode: multiply;
+  padding: 6rem;
+}
+
+.one-line-centered {
+  width: max-content;
+  margin: auto;
+}
+
+.light-font {
+  color: $white-ter;
+}
+
+.title {
+  @extend .one-line-centered, .light-font;
+  font-size: $size-1;
+}
+
+.subtitle {
+  @extend .one-line-centered, .light-font;
+  font-size: $size-large;
+}
+
+.text-search-input {
+  $results-display: none;
+}
+
+.dropdown-content {
+  max-height: 13rem;
+  overflow: auto;
+}
+
+.color-input {
+  max-width: 10rem;
+}
+
+.loader {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.loader:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
