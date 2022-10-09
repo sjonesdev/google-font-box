@@ -28,9 +28,10 @@ section.is-small {
   padding: 6rem;
 }
 
-.one-line-centered {
-  width: max-content;
+.line-wrap-centered {
+  max-width: max-content;
   margin: auto;
+  text-align: center;
 }
 
 .light-font {
@@ -38,13 +39,17 @@ section.is-small {
 }
 
 .title {
-  @extend .one-line-centered, .light-font;
+  @extend .line-wrap-centered, .light-font;
   font-size: $size-1;
 }
 
 .subtitle {
-  @extend .one-line-centered, .light-font;
-  font-size: $size-large;
+  @extend .line-wrap-centered, .light-font;
+  font-size: $size-4;
+}
+
+.controls {
+  row-gap: 0.5rem;
 }
 
 .fieldset {
@@ -66,7 +71,7 @@ section.is-small {
 }
 
 .margin-1-h {
-  margin: 0 1rem;
+  margin: 0 $size-6;
 }
 
 .color-input {
@@ -79,11 +84,11 @@ section.is-small {
 
 .font-display-container {
   max-width: 80%;
-  margin: 2rem auto;
+  margin: $size-4 auto;
 }
 
 .primary-font-display {
-  font-size: 4rem;
+  font-size: $size-2;
   width: max-content;
   max-width: 100%;
 }
@@ -118,3 +123,18 @@ section.is-small {
     transform: rotate(360deg);
   }
 }
+
+@media only screen and (max-width: $tablet) {
+  .title, .primary-font-display {
+    font-size: $size-3
+  }
+
+  .title-header {
+    padding: $size-3
+  }
+
+  .subtitle {
+    font-size: $size-5
+  }
+
+} 

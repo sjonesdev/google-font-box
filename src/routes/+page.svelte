@@ -45,7 +45,7 @@
 <link rel="stylesheet" href={primaryFont.url} type="text/css">
 <link rel="stylesheet" href={secondaryFont.url} type="text/css">
 
-<header class="title-header">
+<header class="title-header is-flex is-flex-direction-column">
   <h1 class="title">Google Font Box</h1>
   <p class="subtitle">A simple tool for browsing Google Fonts</p>
 </header>
@@ -54,7 +54,7 @@
   <section class="section is-small tint-background has-text-light" aria-label="App controls">
     <form action="" aria-label="Font and color pickers">
       <Loader loaded={initDone}>
-        <div class="is-flex is-align-items-flex-end">
+        <div class="controls is-flex is-flex-wrap-wrap is-justify-content-center is-align-items-flex-end">
           <HorizFieldset ariaLabel="Primary font controls">
             <legend>Primary</legend>
             <FontTextSearchInput
